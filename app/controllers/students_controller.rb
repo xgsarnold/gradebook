@@ -1,10 +1,11 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
+  before_action :logged_in_as_teacher?
 
   # GET /students
   def index
-    @students = Student.all
+    @students = Student.where(teacher_id: session[:user_id])
   end
 
   # GET /students/1
@@ -13,7 +14,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = Student.new
+    @student = Student.new(teacher_id: session[:user_id])
   end
 
   # GET /students/1/edit
@@ -50,6 +51,9 @@ class StudentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
+      unless @student.teacher_id == session[:user_id]
+        redirect_to :back
+      end
     end
 
     # Only allow a trusted parameter "white list" through.

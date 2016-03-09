@@ -3,7 +3,7 @@
 one:
   name: Mason
   email: mason@example.com
-  password_digest:  MyString
+  password_digest: <%= BCrypt::Password.create("password") %>
 
 two:
   name: MyString

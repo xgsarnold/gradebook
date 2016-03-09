@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :teacher_id %>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -22,10 +23,6 @@
   <div class="field">
     <%= f.label :password %><br>
     <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :teacher_id %><br>
-    <%= f.collection_select :teacher_id, Teacher.all, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit %>
