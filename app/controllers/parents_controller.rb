@@ -4,7 +4,7 @@ class ParentsController < ApplicationController
 
   # GET /parents
   def index
-    @parents = Parent.all
+    @parents = Parent.where()
   end
 
   # GET /parents/1
