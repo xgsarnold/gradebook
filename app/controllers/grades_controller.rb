@@ -5,17 +5,13 @@ class GradesController < ApplicationController
   # GET /grades
   def index
     if session[:user_type] == "Teacher"
-      # student_identity = Student.find_by(teacher_id: session[:user_id]).id
-      student_identity = Student.where(teacher_id: session[:user_id])
-      # @grades = Grade.where(student_id: )
-      @grades = Grade.where(student_id: student_identity)
+      teacher_session
 
     elsif session[:user_type] == "Student"
-      @grades = Grade.where(student_id: session[:user_id])
+      student_session
 
     elsif session[:user_type] == "Parent"
-      student_identity = Parent.find_by(id: session[:user_id]).student_id
-      @grades = Grade.where(student_id: student_identity)
+      parent_session
     end
   end
   # GET /grades/1
@@ -67,5 +63,19 @@ class GradesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def grade_params
       params.require(:grade).permit(:assignment_name, :grade, :student_id)
+    end
+
+    def teacher_session
+      student_identity = Student.where(teacher_id: session[:user_id])
+      @grades = Grade.where(student_id: student_identity)
+    end
+
+    def student_session
+      @grades = Grade.where(student_id: session[:user_id])
+    end
+
+    def parent_session
+      student_identity = Parent.find_by(id: session[:user_id]).student_id
+      @grades = Grade.where(student_id: student_identity)
     end
 end

@@ -5,4 +5,6 @@ class Student < ActiveRecord::Base
   has_many :grades
 
   validates :teacher, presence: true
+
+
 end
