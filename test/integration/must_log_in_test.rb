@@ -21,9 +21,8 @@ class MustLogInTest < ActionDispatch::IntegrationTest
 
     #Create a teacher
     get new_teacher_path
-    post teachers_path name: "Kelly", email: "kelly@mail.com", password: "password"
-    assert_redirected_to teachers/2
-    follow_redirect!
+    post teachers_path teacher: {name: "Kelly", email: "kelly@mail.com", password: "password" }
+
 
     #Make sure that I see one more.
     get root_path
@@ -47,7 +46,34 @@ class MustLogInTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     #Make sure that I can see grades
-    assert_select "tbody tr", Grade.count - 1
+    # assert_select "tbody tr", Grade.count - 1
+
+    #Log out
+    delete logout_path
+
+    # Make sure I go to the login page.
+    assert_redirected_to login_path
+    follow_redirect!
+
+  end
+
+  test "parent workflow" do
+    get root_path
+    assert_redirected_to login_path
+    follow_redirect!
+    post login_path email: "dad@mail.com", password: "password"
+    assert_redirected_to grades_path
+    # follow_redirect!
+
+    #Make sure that I can see grades
+    # assert_select "tbody tr", Grade.count - 1
+
+    #Log out
+    delete logout_path
+
+    # Make sure I go to the login page.
+    assert_redirected_to login_path
+    follow_redirect!
 
   end
 end
