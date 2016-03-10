@@ -1,10 +1,13 @@
 class ParentsController < ApplicationController
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
+  before_action :logged_in_as_teacher?
 
   # GET /parents
   def index
-    @parents = Parent.where()
+    parent_identity = Student.find_by(teacher_id: session[:user_id]).id
+    @parents = Parent.where(student_id: parent_identity)
+    Student.where(teacher_id: session[:user_id])
   end
 
   # GET /parents/1

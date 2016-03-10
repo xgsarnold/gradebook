@@ -4,11 +4,23 @@ class GradesController < ApplicationController
 
   # GET /grades
   def index
-    @grades = Grade.all
-  end
+    if session[:user_type] == "Teacher"
+      # student_identity = Student.find_by(teacher_id: session[:user_id]).id
+      student_identity = Student.where(teacher_id: session[:user_id])
+      # @grades = Grade.where(student_id: )
+      @grades = Grade.where(student_id: student_identity)
 
+    elsif session[:user_type] == "Student"
+      @grades = Grade.where(student_id: session[:user_id])
+
+    elsif session[:user_type] == "Parent"
+      student_identity = Parent.find_by(id: session[:user_id]).student_id
+      @grades = Grade.where(student_id: student_identity)
+    end
+  end
   # GET /grades/1
   def show
+
   end
 
   # GET /grades/new

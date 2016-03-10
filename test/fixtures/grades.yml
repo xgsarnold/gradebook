@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  assignment_name: MyString
-  grade: 1
+  assignment_name: "Paper 1"
+  grade: 100
   student_id: 1
 
 two:
-  assignment_name: MyString
-  grade: 1
+  assignment_name: "Paper 2"
+  grade: 90
   student_id: 1
