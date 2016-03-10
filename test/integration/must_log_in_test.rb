@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MustLogInTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  # fixtures :all
 
   test "teacher workflow" do
     #Login works
