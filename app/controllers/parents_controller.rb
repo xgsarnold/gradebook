@@ -1,10 +1,11 @@
 class ParentsController < ApplicationController
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
-  before_action :logged_in_as_teacher?
+  # before_action :logged_in_as_teacher?
 
   # GET /parents
   def index
+    logged_in_as_teacher?
     parent_identity = Student.find_by(teacher_id: session[:user_id]).id
     @parents = Parent.where(student_id: parent_identity)
     Student.where(teacher_id: session[:user_id])
@@ -12,10 +13,12 @@ class ParentsController < ApplicationController
 
   # GET /parents/1
   def show
+    logged_in_as_teacher?
   end
 
   # GET /parents/new
   def new
+    logged_in_as_teacher?
     @parent = Parent.new
   end
 
@@ -25,6 +28,7 @@ class ParentsController < ApplicationController
 
   # POST /parents
   def create
+    logged_in_as_teacher?
     @parent = Parent.new(parent_params)
 
     if @parent.save
@@ -45,6 +49,7 @@ class ParentsController < ApplicationController
 
   # DELETE /parents/1
   def destroy
+    logged_in_as_teacher?
     @parent.destroy
     redirect_to parents_url, notice: 'Parent was successfully destroyed.'
   end

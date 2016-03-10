@@ -2,8 +2,9 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @parent %> |
-<%= link_to 'Teacher List', root_path %> |
+<% if session[:user_type] == "Teacher" %>
+  <%= render 'links' %>
+<% end %>
+
 <%= link_to 'Grade List', grades_path %> |
-<%= link_to 'Parent List', parents_path %> |
-<%= link_to 'Student List', students_path %>
+<%= link_to 'Logout', logout_path, method: :delete %>

@@ -32,6 +32,6 @@
 <%= link_to 'New Grade', new_grade_path %> |
 <%= link_to 'Grade List', grades_path %> |
 <%= link_to 'Parent List', parents_path %> |
-<%= link_to 'Student List', students_path %> 
-
-<p><%= link_to 'Logout', logout_path, method: :delete %></p>
+<%= link_to 'Student List', students_path %> |
+<%= link_to 'Profile', edit_teacher_path(session[:user_id]), method: :get %> |
+<%= link_to 'Logout', logout_path, method: :delete %>

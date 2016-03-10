@@ -27,4 +27,12 @@
   <%= render 'links' %>
 <% end %>
 
-<p><%= link_to 'Logout', logout_path, method: :delete %></p>
+<% if session[:user_type] == "Teacher" %>
+  <%= link_to 'Profile', edit_teacher_path(session[:user_id]), method: :get %> |
+<% elsif session[:user_type] == "Student" %>
+  <%= link_to 'Profile', edit_student_path(session[:user_id]), method: :get %> |
+<% elsif session[:user_type] == "Parent" %>
+  <%= link_to 'Profile', edit_parent_path(session[:user_id]), method: :get %> |
+<% end %>
+
+<%= link_to 'Logout', logout_path, method: :delete %>
